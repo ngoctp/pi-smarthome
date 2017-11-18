@@ -1,0 +1,19 @@
+{
+  "name": "ngoctp/pi-smarthome",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.16.2",
+    "onoff": "^1.1.8",
+    "socket.io": "^2.0.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Ngoc P. Tran",
+  "license": "ISC"
+}

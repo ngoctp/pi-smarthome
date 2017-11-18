@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Smart home</title>
+
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <!--<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>-->
+    <!--<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->
+    <![endif]-->
+</head>
+<body>
+<div class="container">
+    <h1>Smart home</h1>
+    <form>
+        <div class="pin-list">
+            <div class="list">
+            </div>
+        </div>
+    </form>
+</div>
+<script id="pin-list-row-template" type="text/x-custom-template">
+    <div class="row">
+        <div class="col-xs-12"><input id="pin-list-item-${pin}" type="checkbox" class="" data-pin="${pin}" ${checked}> <label for="pin-list-item-${pin}">${name}</label></div>
+    </div>
+</script>
+
+<script src="js/socket.io.js"></script> <!-- include socket.io client side script -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-switch.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
