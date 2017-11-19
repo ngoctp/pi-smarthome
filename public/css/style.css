@@ -1,3 +1,26 @@
 h1 {
     text-align: center;
+    color: #11bd36;
+}
+
+.pin-list .list .row {
+    margin-bottom: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    color: white;
+}
+
+.pin-list .list .row .pin-list-item {
+    padding: 10px 0px;
+    display: block;
+    margin: 0px;
+    cursor: pointer;
+}
+
+.pin-list .list .row:nth-child(odd) {
+    background-color: #11bd36;
+}
+
+.pin-list .list .row:nth-child(even) {
+    background-color: #0de23b;
 }

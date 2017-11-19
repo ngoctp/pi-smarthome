@@ -38,12 +38,4 @@ function replaceAll(str, find, replace) {
         });
     });
 
-    // $('.pin-list .list').on('click', 'input[type="checkbox"]', function (e) {
-    //     var pin = $(this).data('pin');
-    //     socket.emit('pin/enable', {
-    //         pin: pin,
-    //         enabled: this.checked
-    //     });
-    // });
-
 })(jQuery);
