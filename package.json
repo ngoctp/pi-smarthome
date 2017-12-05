@@ -10,11 +10,13 @@
   },
   "devDependencies": {
     "ts-node": "^3.3.0",
+    "tslint": "^5.8.0",
     "typescript": "^2.6.2"
   },
   "scripts": {
     "serve": "tsc; node dist/main",
     "start": "node dist/main",
+    "lint": "tslint -p tsconfig.json",
     "compile": "tsc"
   },
   "keywords": [],

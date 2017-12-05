@@ -1,7 +1,7 @@
-import IGpio from "../igpio";
+import IGpio from '../igpio';
 
 export default class GpioEmulator implements IGpio {
-    private enabled: boolean = false;
+    private enabled = false;
     private gpio: number;
     private direction: string;
 
@@ -10,17 +10,17 @@ export default class GpioEmulator implements IGpio {
         this.direction = direction;
     }
 
-    readSync(): boolean {
+    public readSync(): boolean {
         console.log('readSync: ', this.enabled);
         return this.enabled;
     }
 
-    writeSync(value: boolean) {
+    public writeSync(value: boolean) {
         console.log('writeSync: ', value);
         this.enabled = value;
     }
 
-    unexport() {
+    public unexport() {
         console.log('unexport');
     }
 }

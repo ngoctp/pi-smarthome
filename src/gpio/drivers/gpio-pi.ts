@@ -1,5 +1,6 @@
-import IGpio from '../igpio';
 import * as Gpio from 'onoff';
+
+import IGpio from '../igpio';
 
 export default class GpioPi implements IGpio {
     private gpio: any;
@@ -8,15 +9,15 @@ export default class GpioPi implements IGpio {
         this.gpio = new Gpio(gpio, direction);
     }
 
-    readSync(): boolean {
+    public readSync(): boolean {
         return this.gpio.readSync() ? true : false;
     }
 
-    writeSync(value: boolean) {
+    public writeSync(value: boolean) {
         return this.gpio.writeSync(value);
     }
 
-    unexport() {
+    public unexport() {
         return this.gpio.unexport();
     }
 }
