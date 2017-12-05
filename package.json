@@ -1,17 +1,21 @@
 {
-  "name": "ngoctp/pi-smarthome",
-  "private": true,
-  "version": "1.0.0",
-  "description": "",
+  "description": "Make a smart home with Raspberry PI",
   "main": "server.js",
   "dependencies": {
+    "@types/node": "^8.0.54",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
     "onoff": "^1.1.8",
     "socket.io": "^2.0.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.2"
+  },
   "scripts": {
-    "start": "node server.js"
+    "serve": "tsc; node dist/main",
+    "start": "node dist/main",
+    "compile": "tsc"
   },
   "keywords": [],
   "author": "Ngoc P. Tran",
