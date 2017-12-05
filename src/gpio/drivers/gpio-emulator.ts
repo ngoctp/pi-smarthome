@@ -11,16 +11,16 @@ export default class GpioEmulator implements IGpio {
     }
 
     public readSync(): boolean {
-        console.log('readSync: ', this.enabled);
+        console.log('readSync[' + this.gpio + ']: ', this.enabled);
         return this.enabled;
     }
 
     public writeSync(value: boolean) {
-        console.log('writeSync: ', value);
+        console.log('writeSync[' + this.gpio + ']: ', value);
         this.enabled = value;
     }
 
     public unexport() {
-        console.log('unexport');
+        console.log('unexport[' + this.gpio + ']');
     }
 }

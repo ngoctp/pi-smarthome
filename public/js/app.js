@@ -32,7 +32,7 @@ function replaceAll(str, find, replace) {
 
     $('.pin-list .list').on('switchChange.bootstrapSwitch', 'input[type="checkbox"]', function(event, state) {
         var pin = $(this).data('pin');
-        socket.emit('pin/enable', {
+        socket.emit('pin/switch', {
             pin: pin,
             enabled: this.checked
         });

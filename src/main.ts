@@ -9,88 +9,54 @@ const app = express();
 import { Server } from 'http';
 const server = new Server(app);
 import * as socketIO from 'socket.io';
-const io = socketIO(server);
 
-server.listen(process.env.PORT);
-app.use('/', (express as any).static(__dirname + '/../public'));
+import Pin from './models/pin';
+import IPin from './interfaces/ipin';
 
-const pins = [
-    {
-        name: 'Living room light',
-        pin: 17,
-        enabled: false,
-    },
-    {
-        name: 'Kitchen light',
-        pin: 18,
-        enabled: false,
-    },
-    {
-        name: 'Parent\'s room light',
-        pin: 27,
-        enabled: false,
-    },
-    {
-        name: 'Children\'s room light',
-        pin: 22,
-        enabled: false,
-    },
-    {
-        name: 'Balcony light',
-        pin: 23,
-        enabled: false,
-    },
-    {
-        name: 'Reading lamp',
-        pin: 24,
-        enabled: false,
-    },
-    {
-        name: 'Front door light',
-        pin: 25,
-        enabled: false,
-    },
-    {
-        name: 'Water pump',
-        pin: 12,
-        enabled: false,
-    },
-];
+const leds = {};
+let pins: IPin[] = null;
 
-const leds = initLEDs(pins);
-
-function initLEDs(pinList) {
-    const result = {};
-    pinList.forEach((pin) => {
+Pin.getInstance().getList().then((response) => {
+    pins = response;
+    pins.forEach((pin) => {
         const led = new Gpio(pin.pin, 'out');
         led.writeSync(pin.enabled);
-        result[pin.pin] = led;
+        leds[pin.pin] = led;
     });
-    return result;
-}
 
-io.on('connection', (socket) => {
-    socket.emit('pin/list', responsePinList());
-    socket.on('pin/enable', (data) => { // get light switch status from client
-        const pin = data.pin;
-        const enabled = data.enabled;
-        if (leds[pin] && enabled !== leds[pin].readSync()) { // only change LED if status has changed
-            leds[pin].writeSync(enabled); // turn LED on or off
-        }
+}).then(() => {
+    const io = socketIO(server);
+    io.on('connection', (socket) => {
+        socket.emit('pin/list', (() => {
+            const result = [];
+            pins.forEach((pin) => {
+                result.push((Object as any).assign({}, pin, {
+                    enabled: leds[pin.pin].readSync(),
+                }));
+            });
+            return result;
+        })());
+        socket.on('pin/switch', (data) => { // get light switch status from client
+            const pin = data.pin;
+            const enabled = data.enabled;
+            if (leds[pin] && enabled !== leds[pin].readSync()) { // only change LED if status has changed
+                leds[pin].writeSync(enabled); // turn LED on or off
+            }
+        });
     });
+
+}).then(() => {
+    app.use('/', (express as any).static(__dirname + '/../public'));
+    server.listen(process.env.PORT);
+
 });
 
-function responsePinList() {
-    const result = [];
+process.on('SIGINT', () => { // on ctrl+c
     pins.forEach((pin) => {
-        result.push((Object as any).assign({}, pin, {
-            enabled: leds[pin.pin].readSync(),
-        }));
+        const led = leds[pin.pin];
+        led.writeSync(false);
+        led.unexport();
     });
-    return result;
-}
-// console.log(app);
+    process.exit(); // exit completely
 
-console.log(process.env.PORT);
-console.log(process.env.GPIO_DRIVER);
-// process.exit();
+});
