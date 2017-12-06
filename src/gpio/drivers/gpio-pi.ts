@@ -20,4 +20,10 @@ export default class GpioPi implements IGpio {
     public unexport() {
         return this.gpio.unexport();
     }
+
+    public switch(value: boolean) {
+        if (value !== this.readSync()) { // only change LED if status has changed
+            this.writeSync(value); // turn LED on or off
+        }
+    }
 }

@@ -14,7 +14,8 @@
     "typescript": "^2.6.2"
   },
   "scripts": {
-    "serve": "tsc; node dist/main",
+    "serve-dist": "tsc; node dist/main",
+    "serve": "ts-node src/main",
     "start": "node dist/main",
     "lint": "tslint -p tsconfig.json",
     "compile": "tsc"

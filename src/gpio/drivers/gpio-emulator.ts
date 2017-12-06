@@ -23,4 +23,10 @@ export default class GpioEmulator implements IGpio {
     public unexport() {
         console.log('unexport[' + this.gpio + ']');
     }
+
+    public switch(value: boolean) {
+        if (value !== this.readSync()) { // only change LED if status has changed
+            this.writeSync(value); // turn LED on or off
+        }
+    }
 }
