@@ -1,20 +1,27 @@
-import * as Gpio from 'onoff';
+import { Gpio } from 'onoff';
 
 import IGpio from '../igpio';
 
 export default class GpioPi implements IGpio {
     private gpio: any;
+    private pin: number;
+    private direction: string;
 
-    constructor(gpio: number, direction: string) {
-        this.gpio = new Gpio(gpio, direction);
+    constructor(pin: number, direction: string) {
+        this.pin = pin;
+        this.direction = direction;
+        this.gpio = new Gpio(pin, direction);
     }
 
     public readSync(): boolean {
-        return this.gpio.readSync() ? true : false;
+        const result = this.gpio.readSync() ? false : true;
+        console.log('read pin[' + this.pin + ']:', result);
+        return result;
     }
 
     public writeSync(value: boolean) {
-        return this.gpio.writeSync(value);
+        console.log('write pin[' + this.pin + ']:', value)
+        return this.gpio.writeSync(value ? 0 : 1);
     }
 
     public unexport() {

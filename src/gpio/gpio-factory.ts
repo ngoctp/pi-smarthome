@@ -15,7 +15,7 @@ export default class GpioFactory {
                 return GpioEmulator;
             case GpioDriver.PI:
                 try {
-                    return require('./drivers/gpio-pi');
+                    return require('./drivers/gpio-pi')['default'];
                 } catch (e) {
                     throw new Error('Not running on PI');
                 }
