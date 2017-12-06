@@ -23,7 +23,7 @@ export default class LedManager {
         if (pin.schedules) {
             pin.schedules.forEach((schedule) => {
                 jobs.push(scheduleJob(schedule.rule, () => {
-                    if (schedule.action == 'turn_on') {
+                    if (schedule.action === 'turn_on') {
                         led.switch(true);
                     }
 
@@ -35,8 +35,8 @@ export default class LedManager {
         }
 
         return this.leds[pin.pin] = {
-            led: led,
-            jobs: jobs,
+            led,
+            jobs,
         };
     }
 

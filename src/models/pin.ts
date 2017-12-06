@@ -49,7 +49,7 @@ export default class Pin {
                     rule: '0 7 * * *',
                     action: 'turn_on',
                     duration: 15 * 60,
-                }
+                },
             ],
         },
     ];
