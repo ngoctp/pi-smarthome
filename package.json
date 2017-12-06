@@ -5,6 +5,7 @@
     "@types/node": "^8.0.54",
     "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "node-schedule": "^1.2.5",
     "onoff": "^1.1.8",
     "socket.io": "^2.0.4"
   },

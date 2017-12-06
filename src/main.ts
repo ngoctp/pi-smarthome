@@ -20,7 +20,7 @@ Pin.getInstance().getList().then((pins) => {
             const result = [];
             PinManager.getInstance().getPins().forEach((pin) => {
                 result.push((Object as any).assign({}, pin, {
-                    enabled: PinManager.getInstance().getLedManager().getLed(pin.pin).readSync(),
+                    enabled: PinManager.getInstance().getLedManager().getLed(pin.pin).led.readSync(),
                 }));
             });
             return result;
@@ -30,7 +30,7 @@ Pin.getInstance().getList().then((pins) => {
             const enabled = data.enabled;
             const led = PinManager.getInstance().getLedManager().getLed(pin);
             if (led) {
-                led.switch(enabled);
+                led.led.switch(enabled);
             }
         });
     });

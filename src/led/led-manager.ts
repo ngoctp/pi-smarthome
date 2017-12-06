@@ -1,5 +1,6 @@
 import GpioFactory from '../gpio/gpio-factory';
-import IGpio from '../gpio/igpio';
+import { scheduleJob } from 'node-schedule';
+import ILed from '../interfaces/iled';
 
 export default class LedManager {
 
@@ -11,26 +12,43 @@ export default class LedManager {
 
     }
 
-    public getLed(pin): IGpio {
+    public getLed(pin): ILed {
         return this.leds[pin];
     }
 
-    public addLed(pin, enabled): any {
-        const led = new this.driver(pin, 'out');
-        led.writeSync(enabled);
-        this.leds[pin] = led;
-        return led;
+    public addLed(pin): ILed {
+        const led = new this.driver(pin.pin, 'out');
+        led.writeSync(pin.enabled);
+        const jobs = [];
+        if (pin.schedules) {
+            pin.schedules.forEach((schedule) => {
+                jobs.push(scheduleJob(schedule.rule, () => {
+                    if (schedule.action == 'turn_on') {
+                        led.switch(true);
+                    }
+
+                    setTimeout(() => {
+                        led.switch(false);
+                    }, schedule.duration * 1000);
+                }));
+            });
+        }
+
+        return this.leds[pin.pin] = {
+            led: led,
+            jobs: jobs,
+        };
     }
 
     public addLedsFromPins(pins): void {
         pins.forEach((pin) => {
-            this.addLed(pin.pin, pin.enabled);
+            this.addLed(pin);
         });
     }
 
     public unexport() {
         for (const i of Object.keys(this.leds)) {
-            const led = this.leds[i];
+            const led = this.leds[i].led;
             led.writeSync(false);
             led.unexport();
         }

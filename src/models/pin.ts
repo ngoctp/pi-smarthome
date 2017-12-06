@@ -44,6 +44,13 @@ export default class Pin {
             name: 'Water pump',
             pin: 12,
             enabled: false,
+            schedules: [
+                {
+                    rule: '0 7 * * *',
+                    action: 'turn_on',
+                    duration: 15 * 60,
+                }
+            ],
         },
     ];
 
