@@ -11,6 +11,7 @@ export default class GpioPi implements IGpio {
         this.pin = pin;
         this.direction = direction;
         this.gpio = new Gpio(pin, direction);
+        this.writeSync(false);
     }
 
     public readSync(): boolean {
