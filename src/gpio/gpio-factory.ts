@@ -1,6 +1,7 @@
 import GpioEmulator from './drivers/gpio-emulator';
 import GpioDriver from './gpio-driver';
-import GpioPi from './drivers/gpio-pi';
+declare var require: any;
+
 
 export default class GpioFactory {
     private driver: string;
@@ -14,7 +15,11 @@ export default class GpioFactory {
             case GpioDriver.EMULATOR:
                 return GpioEmulator;
             case GpioDriver.PI:
-                return GpioPi;
+                try {
+                    return require('./drivers/gpio-pi').default;
+                } catch (e) {
+                    throw new Error('Not running on PI, change GPIO_DRIVER to "emulator" for testing!');
+                }
             default:
                 throw new Error('Driver "' + this.driver + '" is invalid');
         }

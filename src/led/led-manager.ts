@@ -22,15 +22,14 @@ export default class LedManager {
         const jobs = [];
         if (pin.schedules) {
             pin.schedules.forEach((schedule) => {
-                jobs.push(scheduleJob(schedule.rule, () => {
-                    if (schedule.action === 'turn_on') {
-                        led.switch(true);
-                    }
-
+                const job = scheduleJob(schedule.rule, () => {
                     setTimeout(() => {
-                        led.switch(false);
-                    }, schedule.duration * 1000);
-                }));
+                            led.switch(schedule.state);
+                    }, schedule.delay * 1000);
+
+                });
+
+                jobs.push(job);
             });
         }
 

@@ -47,8 +47,12 @@ export default class Pin {
             schedules: [
                 {
                     rule: '0 7 * * *',
-                    action: 'turn_on',
-                    duration: 15 * 60,
+                    state: true,
+                },
+                {
+                    rule: '15 7 * * *',
+                    state: false,
+                    delay: 10,
                 },
             ],
         },

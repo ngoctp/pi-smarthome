@@ -1,14 +1,6 @@
-import IGpio from '../igpio';
+import { Gpio } from 'onoff';
 
-declare var require: any;
-/* tslint:disable */
-let Gpio;
-try {
-    Gpio = require('onoff').Gpio;
-} catch (e) {
-    throw new Error('Not running on PI');
-}
-/* tslint:enable */
+import IGpio from '../igpio';
 
 export default class GpioPi implements IGpio {
     private gpio: any;
