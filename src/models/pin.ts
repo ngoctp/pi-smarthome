@@ -33,42 +33,42 @@ export default class Pin {
     private pins = [
         {
             name: 'Living room light',
-            pin: 17,
+            pin: 17, // pin 11
             enabled: false,
         },
         {
             name: 'Kitchen light',
-            pin: 18,
+            pin: 18, // pin 12
             enabled: false,
         },
         {
             name: 'Parent\'s room light',
-            pin: 27,
+            pin: 27, // pin 13
             enabled: false,
         },
         {
             name: 'Children\'s room light',
-            pin: 22,
+            pin: 22, // pin 15
             enabled: false,
         },
         {
             name: 'Balcony light',
-            pin: 23,
+            pin: 23, // pin 16
             enabled: false,
         },
         {
             name: 'Reading lamp',
-            pin: 24,
+            pin: 24, // pin 18
             enabled: false,
         },
         {
             name: 'Front door light',
-            pin: 25,
+            pin: 25, // pin 22
             enabled: false,
         },
         {
             name: 'Water pump',
-            pin: 12,
+            pin: 12, // pin 32
             enabled: false,
             schedules: [
                 {
