@@ -5,7 +5,7 @@ Description=Smarthome service
 [Service]
 Restart=always
 KillSignal=SIGINT
-ExecStart=/bin/sh /home/pi/smarthome/service.sh
+ExecStart=/bin/sh /home/pi/projects/pi-smarthome/service.sh
 
 [Install]
 WantedBy=multi-user.target
