@@ -37,7 +37,10 @@ Pin.getInstance().getList().then((pins) => {
 
 }).then(() => {
     app.use('/', (express as any).static(__dirname + '/../public'));
-    server.listen(process.env.PORT);
+    server.listen({
+        host: process.env.HOST,
+        port: process.env.PORT
+    });
 
 });
 
